@@ -1,0 +1,971 @@
+﻿<Window x:Class="WpfApp1.Views.AddOfferWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="إضافة عرض"
+        Height="760"
+        Width="1050"
+        MinHeight="650"
+        MinWidth="900"
+        WindowStartupLocation="CenterOwner"
+        FlowDirection="RightToLeft"
+        Background="#F5F7FB"
+        FontFamily="Segoe UI"
+        SnapsToDevicePixels="True"
+        UseLayoutRounding="True">
+
+    <Window.Resources>
+
+        <!-- =========================================================
+             COLORS
+        ========================================================== -->
+
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#2563EB"/>
+        <SolidColorBrush x:Key="PrimaryHoverBrush" Color="#1D4ED8"/>
+        <SolidColorBrush x:Key="PrimaryLightBrush" Color="#EFF6FF"/>
+
+        <SolidColorBrush x:Key="TextDarkBrush" Color="#172033"/>
+        <SolidColorBrush x:Key="TextBrush" Color="#334155"/>
+        <SolidColorBrush x:Key="TextSecondaryBrush" Color="#64748B"/>
+        <SolidColorBrush x:Key="TextMutedBrush" Color="#94A3B8"/>
+
+        <SolidColorBrush x:Key="BorderBrushLight" Color="#E8EDF4"/>
+        <SolidColorBrush x:Key="SurfaceBrush" Color="#FFFFFF"/>
+
+        <!-- =========================================================
+             SHADOWS
+        ========================================================== -->
+
+        <DropShadowEffect x:Key="CardShadow"
+                          Color="#64748B"
+                          Opacity="0.09"
+                          BlurRadius="22"
+                          ShadowDepth="3"/>
+
+        <DropShadowEffect x:Key="SmallShadow"
+                          Color="#64748B"
+                          Opacity="0.07"
+                          BlurRadius="14"
+                          ShadowDepth="2"/>
+
+
+        <!-- =========================================================
+             SEARCH BOX
+        ========================================================== -->
+
+        <Style x:Key="SearchBoxStyle"
+               TargetType="TextBox">
+
+            <Setter Property="Height"
+                    Value="46"/>
+
+            <Setter Property="Padding"
+                    Value="14,0"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="Foreground"
+                    Value="#334155"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Background"
+                    Value="#F8FAFC"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#E2E8F0"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+        </Style>
+
+
+        <!-- =========================================================
+             PRIMARY BUTTON
+        ========================================================== -->
+
+        <Style x:Key="PrimaryButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Height"
+                    Value="44"/>
+
+            <Setter Property="MinWidth"
+                    Value="120"/>
+
+            <Setter Property="Padding"
+                    Value="20,0"/>
+
+            <Setter Property="Background"
+                    Value="{StaticResource PrimaryBrush}"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="FontSize"
+                    Value="13"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="10"
+                                SnapsToDevicePixels="True">
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="{StaticResource PrimaryHoverBrush}"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Opacity"
+                                        Value="0.88"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled"
+                                     Value="False">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Opacity"
+                                        Value="0.45"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+        <!-- =========================================================
+             SECONDARY BUTTON
+        ========================================================== -->
+
+        <Style x:Key="SecondaryButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Height"
+                    Value="44"/>
+
+            <Setter Property="Width"
+                    Value="95"/>
+
+            <Setter Property="Background"
+                    Value="#F8FAFC"/>
+
+            <Setter Property="Foreground"
+                    Value="#475569"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#E2E8F0"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="FontSize"
+                    Value="13"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10">
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#F1F5F9"/>
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="BorderBrush"
+                                        Value="#CBD5E1"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Opacity"
+                                        Value="0.85"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+        <!-- =========================================================
+             DATAGRID HEADER
+        ========================================================== -->
+
+        <Style TargetType="DataGridColumnHeader">
+
+            <Setter Property="Background"
+                    Value="#F8FAFC"/>
+
+            <Setter Property="Foreground"
+                    Value="#475569"/>
+
+            <Setter Property="FontSize"
+                    Value="12"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Height"
+                    Value="48"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#E2E8F0"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,1"/>
+
+        </Style>
+
+
+        <!-- =========================================================
+             DATAGRID ROW
+        ========================================================== -->
+
+        <Style TargetType="DataGridRow">
+
+            <Setter Property="Height"
+                    Value="54"/>
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="Foreground"
+                    Value="#334155"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#F1F5F9"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,1"/>
+
+            <Setter Property="SnapsToDevicePixels"
+                    Value="True"/>
+
+            <Style.Triggers>
+
+                <!-- Hover -->
+
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+
+                    <Setter Property="Background"
+                            Value="#F8FBFF"/>
+
+                    <Setter Property="BorderBrush"
+                            Value="#E8EEF8"/>
+
+                </Trigger>
+
+
+                <!-- Selected -->
+
+                <Trigger Property="IsSelected"
+                         Value="True">
+
+                    <Setter Property="Background"
+                            Value="#F5F8FF"/>
+
+                    <Setter Property="Foreground"
+                            Value="#334155"/>
+
+                    <Setter Property="BorderBrush"
+                            Value="#E6EDFF"/>
+
+                </Trigger>
+
+
+                <!-- Selected + Hover -->
+
+                <MultiTrigger>
+
+                    <MultiTrigger.Conditions>
+
+                        <Condition Property="IsSelected"
+                                   Value="True"/>
+
+                        <Condition Property="IsMouseOver"
+                                   Value="True"/>
+
+                    </MultiTrigger.Conditions>
+
+                    <Setter Property="Background"
+                            Value="#F1F6FF"/>
+
+                    <Setter Property="BorderBrush"
+                            Value="#DCE7FF"/>
+
+                </MultiTrigger>
+
+            </Style.Triggers>
+
+        </Style>
+
+
+        <!-- =========================================================
+             DATAGRID CELL
+        ========================================================== -->
+
+        <Style TargetType="DataGridCell">
+
+            <Setter Property="Background"
+                    Value="Transparent"/>
+
+            <Setter Property="Foreground"
+                    Value="#334155"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="Padding"
+                    Value="10,0"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Center"/>
+
+            <Style.Triggers>
+
+                <Trigger Property="IsSelected"
+                         Value="True">
+
+                    <Setter Property="Background"
+                            Value="Transparent"/>
+
+                    <Setter Property="Foreground"
+                            Value="#334155"/>
+
+                </Trigger>
+
+            </Style.Triggers>
+
+        </Style>
+
+    </Window.Resources>
+
+
+    <!-- =============================================================
+         MAIN LAYOUT
+    ============================================================= -->
+
+    <Grid Margin="28">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="*"/>
+
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+
+
+        <!-- =========================================================
+             HEADER
+        ========================================================== -->
+
+        <Border Grid.Row="0"
+                Background="White"
+                CornerRadius="18"
+                Padding="22"
+                Margin="0,0,0,18"
+                Effect="{StaticResource CardShadow}">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="Auto"/>
+
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+
+
+                <!-- ICON -->
+
+                <Border Grid.Column="0"
+                        Width="52"
+                        Height="52"
+                        CornerRadius="15"
+                        Background="#EFF6FF"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+
+                    <TextBlock Text="🏷"
+                               FontSize="25"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+
+                </Border>
+
+
+                <!-- TEXT -->
+
+                <StackPanel Grid.Column="1"
+                            Margin="15,0,0,0"
+                            VerticalAlignment="Center">
+
+                    <TextBlock Text="إضافة منتج للعرض"
+                               FontSize="25"
+                               FontWeight="Bold"
+                               Foreground="#172033"/>
+
+                    <TextBlock Text="ابحث عن المنتج ثم اختره وحدد سعر العرض الجديد"
+                               FontSize="13"
+                               Foreground="#64748B"
+                               Margin="0,5,0,0"/>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- =========================================================
+             SEARCH
+        ========================================================== -->
+
+        <Border Grid.Row="1"
+                Background="White"
+                CornerRadius="16"
+                Padding="16"
+                Margin="0,0,0,18"
+                Effect="{StaticResource SmallShadow}">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="Auto"/>
+
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+
+
+                <!-- SEARCH ICON -->
+
+                <Border Grid.Column="0"
+                        Width="46"
+                        Height="46"
+                        Background="#EFF6FF"
+                        CornerRadius="10"
+                        Margin="0,0,10,0">
+
+                    <TextBlock Text="🔍"
+                               FontSize="19"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+
+                </Border>
+
+
+                <!-- SEARCH BOX -->
+
+                <Grid Grid.Column="1">
+
+                    <TextBox x:Name="SearchProductTextBox"
+                             Style="{StaticResource SearchBoxStyle}"
+                             TextChanged="SearchProductTextBox_TextChanged"
+                             ToolTip="ابحث باسم المنتج"/>
+
+
+                    <!-- PLACEHOLDER -->
+
+                    <TextBlock x:Name="SearchPlaceholderText"
+                               Text="ابحث باسم المنتج..."
+                               Foreground="#94A3B8"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               Margin="15,0,0,0"
+                               IsHitTestVisible="False"/>
+
+                </Grid>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- =========================================================
+             PRODUCTS TABLE
+        ========================================================== -->
+
+        <Border Grid.Row="2"
+                Background="White"
+                CornerRadius="18"
+                Padding="18"
+                Effect="{StaticResource CardShadow}">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="Auto"/>
+
+                    <RowDefinition Height="12"/>
+
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+
+
+                <!-- TABLE HEADER -->
+
+                <Grid Grid.Row="0">
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="*"/>
+
+                        <ColumnDefinition Width="Auto"/>
+
+                    </Grid.ColumnDefinitions>
+
+
+                    <StackPanel Grid.Column="0">
+
+                        <TextBlock Text="اختيار المنتج"
+                                   FontSize="17"
+                                   FontWeight="Bold"
+                                   Foreground="#172033"/>
+
+                        <TextBlock Text="اختر المنتج الذي تريد إنشاء عرض خاص له"
+                                   FontSize="12"
+                                   Foreground="#94A3B8"
+                                   Margin="0,3,0,0"/>
+
+                    </StackPanel>
+
+
+                    <!-- SMALL INFO CHIP -->
+
+                    <Border Grid.Column="1"
+                            Background="#F8FAFC"
+                            BorderBrush="#E2E8F0"
+                            BorderThickness="1"
+                            CornerRadius="9"
+                            Padding="12,7"
+                            VerticalAlignment="Center">
+
+                        <TextBlock Text="قائمة المنتجات"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Foreground="#64748B"/>
+
+                    </Border>
+
+                </Grid>
+
+
+                <!-- DATA GRID -->
+
+                <DataGrid Grid.Row="2"
+                          x:Name="ProductsDataGrid"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserResizeRows="False"
+                          CanUserSortColumns="True"
+                          SelectionMode="Single"
+                          SelectionUnit="FullRow"
+                          SelectionChanged="ProductsDataGrid_SelectionChanged"
+                          HeadersVisibility="Column"
+                          BorderThickness="0"
+                          GridLinesVisibility="Horizontal"
+                          HorizontalGridLinesBrush="#EEF2F7"
+                          VerticalGridLinesBrush="Transparent"
+                          RowHeight="54"
+                          Background="White"
+                          Foreground="#334155"
+                          FontSize="13"
+                          AlternationCount="2"
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          EnableRowVirtualization="True"
+                          EnableColumnVirtualization="True">
+
+                    <DataGrid.Columns>
+
+
+                        <!-- PRODUCT -->
+
+                        <DataGridTextColumn Header="المنتج"
+                                            Binding="{Binding ProductName}"
+                                            Width="2.2*">
+
+                            <DataGridTextColumn.ElementStyle>
+
+                                <Style TargetType="TextBlock">
+
+                                    <Setter Property="HorizontalAlignment"
+                                            Value="Center"/>
+
+                                    <Setter Property="VerticalAlignment"
+                                            Value="Center"/>
+
+                                    <Setter Property="FontSize"
+                                            Value="13"/>
+
+                                    <Setter Property="FontWeight"
+                                            Value="SemiBold"/>
+
+                                    <Setter Property="Foreground"
+                                            Value="#1E293B"/>
+
+                                    <Setter Property="TextTrimming"
+                                            Value="CharacterEllipsis"/>
+
+                                </Style>
+
+                            </DataGridTextColumn.ElementStyle>
+
+                        </DataGridTextColumn>
+
+
+                        <!-- QUANTITY -->
+
+                        <DataGridTextColumn Header="الكمية"
+                                            Binding="{Binding Quantity}"
+                                            Width="1*">
+
+                            <DataGridTextColumn.ElementStyle>
+
+                                <Style TargetType="TextBlock">
+
+                                    <Setter Property="HorizontalAlignment"
+                                            Value="Center"/>
+
+                                    <Setter Property="VerticalAlignment"
+                                            Value="Center"/>
+
+                                    <Setter Property="FontSize"
+                                            Value="13"/>
+
+                                    <Setter Property="Foreground"
+                                            Value="#64748B"/>
+
+                                </Style>
+
+                            </DataGridTextColumn.ElementStyle>
+
+                        </DataGridTextColumn>
+
+
+                        <!-- CURRENT PRICE -->
+
+                        <DataGridTextColumn Header="السعر الحالي"
+                                            Binding="{Binding SellingPrice, StringFormat={}{0:N2} ج.م}"
+                                            Width="1.4*">
+
+                            <DataGridTextColumn.ElementStyle>
+
+                                <Style TargetType="TextBlock">
+
+                                    <Setter Property="HorizontalAlignment"
+                                            Value="Center"/>
+
+                                    <Setter Property="VerticalAlignment"
+                                            Value="Center"/>
+
+                                    <Setter Property="FontSize"
+                                            Value="13"/>
+
+                                    <Setter Property="FontWeight"
+                                            Value="SemiBold"/>
+
+                                    <Setter Property="Foreground"
+                                            Value="#475569"/>
+
+                                </Style>
+
+                            </DataGridTextColumn.ElementStyle>
+
+                        </DataGridTextColumn>
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- =========================================================
+             OFFER DETAILS
+        ========================================================== -->
+
+        <Border Grid.Row="3"
+                Background="White"
+                CornerRadius="18"
+                Padding="20"
+                Margin="0,18,0,0"
+                Effect="{StaticResource CardShadow}">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="1.45*"/>
+
+                    <ColumnDefinition Width="1.25*"/>
+
+                    <ColumnDefinition Width="1.25*"/>
+
+                    <ColumnDefinition Width="Auto"/>
+
+                </Grid.ColumnDefinitions>
+
+
+                <!-- =================================================
+                     SELECTED PRODUCT
+                ================================================== -->
+
+                <StackPanel Grid.Column="0"
+                            Margin="0,0,14,0">
+
+                    <TextBlock Text="المنتج المختار"
+                               FontSize="12"
+                               FontWeight="SemiBold"
+                               Foreground="#475569"
+                               Margin="0,0,0,7"/>
+
+                    <Border Height="44"
+                            Background="#F8FAFC"
+                            BorderBrush="#E2E8F0"
+                            BorderThickness="1"
+                            CornerRadius="9">
+
+                        <TextBox x:Name="SelectedProductTextBox"
+                                 Height="42"
+                                 IsReadOnly="True"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 Padding="11,0"
+                                 FontSize="13"
+                                 Foreground="#334155"
+                                 VerticalContentAlignment="Center"/>
+
+                    </Border>
+
+                </StackPanel>
+
+
+                <!-- =================================================
+                     ORIGINAL PRICE
+                ================================================== -->
+
+                <StackPanel Grid.Column="1"
+                            Margin="0,0,14,0">
+
+                    <TextBlock Text="السعر الحالي"
+                               FontSize="12"
+                               FontWeight="SemiBold"
+                               Foreground="#475569"
+                               Margin="0,0,0,7"/>
+
+                    <Border Height="44"
+                            Background="#F8FAFC"
+                            BorderBrush="#E2E8F0"
+                            BorderThickness="1"
+                            CornerRadius="9">
+
+                        <TextBox x:Name="OriginalPriceTextBox"
+                                 Height="42"
+                                 IsReadOnly="True"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 Padding="11,0"
+                                 FontSize="13"
+                                 Foreground="#64748B"
+                                 VerticalContentAlignment="Center"/>
+
+                    </Border>
+
+                </StackPanel>
+
+
+                <!-- =================================================
+                     OFFER PRICE
+                ================================================== -->
+
+                <StackPanel Grid.Column="2"
+                            Margin="0,0,16,0">
+
+                    <TextBlock Text="سعر العرض"
+                               FontSize="12"
+                               FontWeight="SemiBold"
+                               Foreground="#475569"
+                               Margin="0,0,0,7"/>
+
+                    <Border Height="44"
+                            Background="#F8FAFC"
+                            BorderBrush="#CBD5E1"
+                            BorderThickness="1"
+                            CornerRadius="9">
+
+                        <TextBox x:Name="OfferPriceTextBox"
+                                 Height="42"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 Padding="11,0"
+                                 FontSize="14"
+                                 FontWeight="SemiBold"
+                                 Foreground="#172033"
+                                 VerticalContentAlignment="Center"
+                                 TextChanged="OfferPriceTextBox_TextChanged"/>
+
+                    </Border>
+
+                </StackPanel>
+
+
+                <!-- =================================================
+                     ACTIONS
+                ================================================== -->
+
+                <StackPanel Grid.Column="3"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Right">
+
+
+                    <!-- DISCOUNT -->
+
+                    <Border Background="#ECFDF5"
+                            BorderBrush="#BBF7D0"
+                            BorderThickness="1"
+                            CornerRadius="9"
+                            Padding="12,6"
+                            Margin="0,0,0,9"
+                            HorizontalAlignment="Center">
+
+                        <TextBlock x:Name="DiscountPreviewTextBlock"
+                                   Text="الخصم: 0%"
+                                   FontSize="12"
+                                   FontWeight="SemiBold"
+                                   Foreground="#15803D"
+                                   HorizontalAlignment="Center"/>
+
+                    </Border>
+
+
+                    <!-- BUTTONS -->
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <!-- CANCEL -->
+
+                        <Button Content="إلغاء"
+                                Width="90"
+                                Height="44"
+                                Margin="0,0,9,0"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                Click="CancelButton_Click"/>
+
+
+                        <!-- SAVE -->
+
+                        <Button Content="حفظ العرض"
+                                Width="125"
+                                Height="44"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Click="SaveButton_Click"/>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</Window>

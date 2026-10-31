@@ -1,0 +1,499 @@
+﻿<Window x:Class="WpfApp1.Views.SellDeviceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="بيع الجهاز"
+        Height="900"
+        Width="900"
+        MinHeight="650"
+        MinWidth="620"
+        WindowStartupLocation="CenterScreen"
+        FlowDirection="RightToLeft"
+        Background="#F5F7FA"
+        ResizeMode="NoResize"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+
+        <!-- =========================
+             TEXTBOX
+        ========================== -->
+
+        <Style TargetType="TextBox">
+
+            <Setter Property="Height"
+                    Value="42"/>
+
+            <Setter Property="Padding"
+                    Value="12,0"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="Foreground"
+                    Value="#1F2937"/>
+
+            <Setter Property="Background"
+                    Value="#F9FAFB"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#E5E7EB"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+        </Style>
+
+
+        <!-- =========================
+             COMBOBOX
+        ========================== -->
+
+        <Style TargetType="ComboBox">
+
+            <Setter Property="Height"
+                    Value="42"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="Foreground"
+                    Value="#1F2937"/>
+
+            <Setter Property="Background"
+                    Value="#F9FAFB"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#E5E7EB"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+        </Style>
+
+
+        <!-- =========================
+             RADIO BUTTON
+        ========================== -->
+
+        <Style TargetType="RadioButton">
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="Foreground"
+                    Value="#1F2937"/>
+
+            <Setter Property="Margin"
+                    Value="0,0,25,0"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+        </Style>
+
+
+        <!-- =========================
+             CANCEL BUTTON
+        ========================== -->
+
+        <Style x:Key="CancelButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Width"
+                    Value="115"/>
+
+            <Setter Property="Height"
+                    Value="44"/>
+
+            <Setter Property="Background"
+                    Value="#F3F4F6"/>
+
+            <Setter Property="Foreground"
+                    Value="#374151"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8">
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+        <!-- =========================
+             SELL BUTTON
+        ========================== -->
+
+        <Style x:Key="SellButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Width"
+                    Value="145"/>
+
+            <Setter Property="Height"
+                    Value="44"/>
+
+            <Setter Property="Background"
+                    Value="#16A34A"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8">
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+    </Window.Resources>
+
+
+    <!-- =========================================================
+         MAIN GRID
+    ========================================================== -->
+
+    <Grid Margin="25">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="*"/>
+
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+
+
+        <!-- =========================================================
+             HEADER
+        ========================================================== -->
+
+        <StackPanel Grid.Row="0"
+                    Margin="0,0,0,20">
+
+            <TextBlock Text="بيع الجهاز"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="#1F2937"/>
+
+            <TextBlock Text="أدخل بيانات العميل وطريقة السداد والمبلغ المحصل"
+                       FontSize="14"
+                       Foreground="#6B7280"
+                       Margin="0,6,0,0"/>
+
+        </StackPanel>
+
+
+        <!-- =========================================================
+             CONTENT
+        ========================================================== -->
+
+        <Border Grid.Row="1"
+                Background="White"
+                CornerRadius="14"
+                Padding="28">
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+
+                <StackPanel>
+
+
+                    <!-- =========================
+                         DEVICE
+                    ========================== -->
+
+                    <Border Background="#F8FAFC"
+                            CornerRadius="10"
+                            Padding="16"
+                            Margin="0,0,0,22">
+
+                        <StackPanel>
+
+                            <TextBlock Text="الجهاز"
+                                       FontSize="12"
+                                       FontWeight="SemiBold"
+                                       Foreground="#6B7280"
+                                       Margin="0,0,0,5"/>
+
+                            <TextBlock x:Name="DeviceNameText"
+                                       Text="الجهاز"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="#1F2937"/>
+
+                        </StackPanel>
+
+                    </Border>
+
+
+                    <!-- =========================
+                         CUSTOMER NAME
+                    ========================== -->
+
+                    <TextBlock Text="اسم العميل"
+                               FontSize="13"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"
+                               Margin="0,0,0,7"/>
+
+                    <TextBox x:Name="CustomerNameTextBox"/>
+
+
+                    <!-- =========================
+                         CUSTOMER PHONE
+                    ========================== -->
+
+                    <TextBlock Text="رقم العميل"
+                               FontSize="13"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"
+                               Margin="0,18,0,7"/>
+
+                    <TextBox x:Name="CustomerPhoneTextBox"/>
+
+
+                    <!-- =========================
+                         SELLING PRICE
+                    ========================== -->
+
+                    <TextBlock Text="سعر البيع الكلي"
+                               FontSize="13"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"
+                               Margin="0,18,0,7"/>
+
+                    <TextBox x:Name="SellingPriceTextBox"
+                             TextChanged="SellingPriceTextBox_TextChanged"/>
+
+
+                    <!-- =================================================
+                         PAYMENT TYPE
+                    ================================================== -->
+
+                    <TextBlock Text="نوع السداد"
+                               FontSize="13"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"
+                               Margin="0,20,0,10"/>
+
+
+                    <Border Background="#F8FAFC"
+                            BorderBrush="#E5E7EB"
+                            BorderThickness="1"
+                            CornerRadius="10"
+                            Padding="15">
+
+                        <StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <RadioButton x:Name="FullPaymentRadio"
+                                             Content="دفعة كاملة"
+                                             GroupName="PaymentType"
+                                             IsChecked="True"
+                                             Checked="PaymentType_Checked"/>
+
+                                <RadioButton x:Name="CreditPaymentRadio"
+                                             Content="دفعة آجل"
+                                             GroupName="PaymentType"
+                                             Checked="PaymentType_Checked"/>
+
+                            </StackPanel>
+
+                            <TextBlock Text="دفعة كاملة: يتم تحصيل كامل سعر الجهاز الآن"
+                                       FontSize="12"
+                                       Foreground="#6B7280"
+                                       Margin="0,10,0,0"/>
+
+                        </StackPanel>
+
+                    </Border>
+
+
+                    <!-- =================================================
+                         COLLECTED AMOUNT
+                    ================================================== -->
+
+                    <TextBlock Text="المبلغ المحصل الآن"
+                               FontSize="13"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"
+                               Margin="0,18,0,7"/>
+
+                    <TextBox x:Name="CollectedAmountTextBox"
+                             TextChanged="CollectedAmountTextBox_TextChanged"/>
+
+
+                    <!-- =================================================
+                         REMAINING
+                    ================================================== -->
+
+                    <Border x:Name="RemainingCreditBorder"
+                            Background="#FEF2F2"
+                            BorderBrush="#FECACA"
+                            BorderThickness="1"
+                            CornerRadius="10"
+                            Padding="14"
+                            Margin="0,12,0,0">
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition Width="*"/>
+
+                                <ColumnDefinition Width="Auto"/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <TextBlock Text="المتبقي آجل"
+                                       FontSize="14"
+                                       FontWeight="SemiBold"
+                                       Foreground="#B91C1C"
+                                       VerticalAlignment="Center"/>
+
+
+                            <TextBlock x:Name="RemainingAmountText"
+                                       Grid.Column="1"
+                                       Text="0.00 ج.م"
+                                       FontSize="18"
+                                       FontWeight="Bold"
+                                       Foreground="#DC2626"
+                                       VerticalAlignment="Center"/>
+
+                        </Grid>
+
+                    </Border>
+
+
+                    <!-- =================================================
+                         PAYMENT METHOD
+                    ================================================== -->
+
+                    <TextBlock Text="طريقة دفع المبلغ المحصل"
+                               FontSize="13"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"
+                               Margin="0,18,0,7"/>
+
+                    <ComboBox x:Name="PaymentMethodComboBox">
+
+                        <ComboBoxItem Content="نقدي"
+                                      IsSelected="True"/>
+
+                        <ComboBoxItem Content="Vodafone Cash"/>
+
+                    </ComboBox>
+
+
+                    <!-- =================================================
+                         NOTES
+                    ================================================== -->
+
+                    <TextBlock Text="ملاحظات"
+                               FontSize="13"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"
+                               Margin="0,18,0,7"/>
+
+                    <TextBox x:Name="NotesTextBox"
+                             Height="70"
+                             Padding="12"
+                             TextWrapping="Wrap"
+                             VerticalContentAlignment="Top"/>
+
+                </StackPanel>
+
+            </ScrollViewer>
+
+        </Border>
+
+
+        <!-- =========================================================
+             FOOTER
+        ========================================================== -->
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    Margin="0,18,0,0">
+
+            <Button Content="إلغاء"
+                    Style="{StaticResource CancelButtonStyle}"
+                    Margin="0,0,10,0"
+                    Click="CancelButton_Click"/>
+
+            <Button Content="تأكيد البيع"
+                    Style="{StaticResource SellButtonStyle}"
+                    Click="SellButton_Click"/>
+
+        </StackPanel>
+
+    </Grid>
+
+</Window>

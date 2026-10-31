@@ -1,0 +1,415 @@
+﻿<Window x:Class="WpfApp1.Views.RevenueBoxWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="صندوق الإيرادات"
+        Height="650"
+        Width="1450"
+        MinHeight="550"
+        MinWidth="1100"
+        WindowStartupLocation="CenterOwner"
+        FlowDirection="RightToLeft"
+        Background="#F4F6F9"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+
+        <!-- =========================
+             DROP SHADOW
+        ========================== -->
+        <DropShadowEffect x:Key="CardShadow"
+                          Color="#0F172A"
+                          Opacity="0.05"
+                          BlurRadius="14"
+                          ShadowDepth="4"
+                          Direction="270"/>
+
+
+        <!-- =========================
+             CARD STYLE
+        ========================== -->
+        <Style x:Key="CardStyle"
+               TargetType="Border">
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="CornerRadius"
+                    Value="16"/>
+
+            <Setter Property="Padding"
+                    Value="24"/>
+
+            <Setter Property="Effect"
+                    Value="{StaticResource CardShadow}"/>
+
+        </Style>
+
+
+        <!-- =========================
+             PERIOD COMBOBOX STYLE
+        ========================== -->
+        <Style x:Key="PeriodComboStyle"
+               TargetType="ComboBox">
+
+            <Setter Property="Height"
+                    Value="42"/>
+
+            <Setter Property="Width"
+                    Value="190"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Padding"
+                    Value="10,0"/>
+
+        </Style>
+
+    </Window.Resources>
+
+
+    <!-- =========================
+         MAIN GRID
+    ========================== -->
+
+    <Grid Margin="28">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+
+        <!-- =========================
+             HEADER
+        ========================== -->
+
+        <Grid Grid.Row="0"
+              Margin="0,0,0,24">
+
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition Width="*"/>
+
+                <ColumnDefinition Width="Auto"/>
+
+            </Grid.ColumnDefinitions>
+
+
+            <!-- TITLE -->
+
+            <StackPanel Grid.Column="0"
+                        VerticalAlignment="Center">
+
+                <TextBlock Text="💰 صندوق الإيرادات"
+                           FontSize="28"
+                           FontWeight="Bold"
+                           Foreground="#1E293B"/>
+
+                <TextBlock Text="متابعة إجمالي الإيرادات والمصروفات خلال الفترة المحددة"
+                           FontSize="16"
+                           Foreground="#64748B"
+                           Margin="0,5,0,0"/>
+
+            </StackPanel>
+
+
+            <!-- PERIOD -->
+
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+
+                <TextBlock Text="الفترة:"
+                           FontSize="15"
+                           FontWeight="Bold"
+                           Foreground="#475569"
+                           VerticalAlignment="Center"
+                           Margin="0,0,12,0"/>
+
+                <ComboBox x:Name="PeriodComboBox"
+                          Style="{StaticResource PeriodComboStyle}"
+                          SelectionChanged="PeriodComboBox_SelectionChanged">
+
+                    <ComboBoxItem Content="اليوم"/>
+
+                    <ComboBoxItem Content="آخر 7 أيام"
+                                  IsSelected="True"/>
+
+                    <ComboBoxItem Content="آخر 30 يوم"/>
+
+                    <ComboBoxItem Content="آخر شهر"/>
+
+                    <ComboBoxItem Content="آخر شهرين"/>
+
+                    <ComboBoxItem Content="آخر 3 شهور"/>
+
+                    <ComboBoxItem Content="آخر 6 شهور"/>
+
+                    <ComboBoxItem Content="آخر سنة"/>
+
+                    <ComboBoxItem Content="كل الفترات"/>
+
+                </ComboBox>
+
+            </StackPanel>
+
+        </Grid>
+
+
+        <!-- =========================
+             FINANCIAL SUMMARY
+        ========================== -->
+
+        <Border Grid.Row="1"
+                Background="#ECFDF5"
+                BorderBrush="#A7F3D0"
+                BorderThickness="1"
+                CornerRadius="16"
+                Padding="20"
+                Margin="0,0,0,24"
+                Effect="{StaticResource CardShadow}">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1"/>
+
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1"/>
+
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1"/>
+
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1"/>
+
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+
+
+                <!-- =========================
+                     SALES REVENUE
+                ========================== -->
+
+                <StackPanel Grid.Column="0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+
+                    <TextBlock Text="إيرادات المبيعات"
+                               FontSize="14"
+                               FontWeight="SemiBold"
+                               Foreground="#047857"
+                               HorizontalAlignment="Center"/>
+
+                    <TextBlock x:Name="SalesRevenueSummaryTextBlock"
+                               Text="0.00 ج.م"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Foreground="#065F46"
+                               Margin="0,6,0,0"
+                               HorizontalAlignment="Center"/>
+
+                </StackPanel>
+
+
+                <!-- SEPARATOR -->
+
+                <Border Grid.Column="1"
+                        Width="1"
+                        Height="55"
+                        Background="#A7F3D0"
+                        VerticalAlignment="Center"/>
+
+
+                <!-- =========================
+                     RETURNS
+                ========================== -->
+
+                <StackPanel Grid.Column="2"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+
+                    <TextBlock Text="إجمالي المسترجعات"
+                               FontSize="14"
+                               FontWeight="SemiBold"
+                               Foreground="#B91C1C"
+                               HorizontalAlignment="Center"/>
+
+                    <TextBlock x:Name="ReturnsSummaryTextBlock"
+                               Text="0.00 ج.م"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Foreground="#991B1B"
+                               Margin="0,6,0,0"
+                               HorizontalAlignment="Center"/>
+
+                </StackPanel>
+
+
+                <!-- SEPARATOR -->
+
+                <Border Grid.Column="3"
+                        Width="1"
+                        Height="55"
+                        Background="#A7F3D0"
+                        VerticalAlignment="Center"/>
+
+
+                <!-- =========================
+                     MAINTENANCE
+                ========================== -->
+
+                <StackPanel Grid.Column="4"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+
+                    <TextBlock Text="إيرادات الصيانة"
+                               FontSize="14"
+                               FontWeight="SemiBold"
+                               Foreground="#047857"
+                               HorizontalAlignment="Center"/>
+
+                    <TextBlock x:Name="MaintenanceRevenueSummaryTextBlock"
+                               Text="0.00 ج.م"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Foreground="#065F46"
+                               Margin="0,6,0,0"
+                               HorizontalAlignment="Center"/>
+
+                </StackPanel>
+
+
+                <!-- SEPARATOR -->
+
+                <Border Grid.Column="5"
+                        Width="1"
+                        Height="55"
+                        Background="#A7F3D0"
+                        VerticalAlignment="Center"/>
+
+
+                <!-- =========================
+                     EXPENSES
+                ========================== -->
+
+                <StackPanel Grid.Column="6"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+
+                    <TextBlock Text="المصروفات"
+                               FontSize="14"
+                               FontWeight="SemiBold"
+                               Foreground="#B45309"
+                               HorizontalAlignment="Center"/>
+
+                    <TextBlock x:Name="ExpensesSummaryTextBlock"
+                               Text="0.00 ج.م"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Foreground="#92400E"
+                               Margin="0,6,0,0"
+                               HorizontalAlignment="Center"/>
+
+                </StackPanel>
+
+
+                <!-- SEPARATOR -->
+
+                <Border Grid.Column="7"
+                        Width="1"
+                        Height="55"
+                        Background="#A7F3D0"
+                        VerticalAlignment="Center"/>
+
+
+                <!-- =========================
+                     DEVICE REVENUE
+                ========================== -->
+
+                <StackPanel Grid.Column="8"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+
+                    <TextBlock Text="إيرادات الأجهزة"
+                               FontSize="14"
+                               FontWeight="SemiBold"
+                               Foreground="#047857"
+                               HorizontalAlignment="Center"/>
+
+                    <TextBlock x:Name="DeviceRevenueSummaryTextBlock"
+                               Text="0.00 ج.م"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Foreground="#065F46"
+                               Margin="0,6,0,0"
+                               HorizontalAlignment="Center"/>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- =========================
+             NET TOTAL
+        ========================== -->
+
+        <Border Grid.Row="2"
+                Background="#ECFDF5"
+                BorderBrush="#86EFAC"
+                BorderThickness="1"
+                CornerRadius="20"
+                Padding="35"
+                Margin="0,0,0,10"
+                Effect="{StaticResource CardShadow}">
+
+            <Grid>
+
+                <StackPanel HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+
+                    <TextBlock Text="صافي الإيرادات الكلي"
+                               FontSize="35"
+                               FontWeight="SemiBold"
+                               Foreground="#047857"
+                               HorizontalAlignment="Center"/>
+
+                    <TextBlock x:Name="NetRevenueTextBlock"
+                               Text="0.00 ج.م"
+                               FontSize="60"
+                               FontWeight="Bold"
+                               Foreground="#065F46"
+                               Margin="0,10,0,0"
+                               HorizontalAlignment="Center"/>
+
+                    <TextBlock Text="   بعد خصم  المسترجعات و المصروفات  وإضافة   إيرادات المبيعات و إيرادات الصيانة و إيرادات الأجهزة"
+                               FontSize="20"
+                               Foreground="#64748B"
+                                                              FontWeight="Bold"
+
+                               Margin="0,8,0,0"
+                               HorizontalAlignment="Center" Width="841" Height="31"/>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</Window>

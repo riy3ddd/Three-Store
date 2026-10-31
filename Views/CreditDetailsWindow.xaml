@@ -1,0 +1,882 @@
+﻿<Window x:Class="WpfApp1.Views.CreditDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="كشف حساب العميل"
+        Height="720"
+        Width="1000"
+        MinHeight="650"
+        MinWidth="900"
+        WindowStartupLocation="CenterOwner"
+        FlowDirection="RightToLeft"
+        Background="#F5F7FB"
+        FontFamily="Segoe UI"
+        SnapsToDevicePixels="True"
+        UseLayoutRounding="True">
+
+    <Window.Resources>
+
+        <!-- =========================================================
+             COLORS
+        ========================================================== -->
+
+        <SolidColorBrush x:Key="PrimaryBrush"
+                         Color="#2563EB"/>
+
+        <SolidColorBrush x:Key="PrimaryHoverBrush"
+                         Color="#1D4ED8"/>
+
+        <SolidColorBrush x:Key="TextDarkBrush"
+                         Color="#172033"/>
+
+        <SolidColorBrush x:Key="TextBrush"
+                         Color="#334155"/>
+
+        <SolidColorBrush x:Key="TextSecondaryBrush"
+                         Color="#64748B"/>
+
+        <SolidColorBrush x:Key="TextMutedBrush"
+                         Color="#94A3B8"/>
+
+        <SolidColorBrush x:Key="BorderBrushLight"
+                         Color="#E8EDF4"/>
+
+        <SolidColorBrush x:Key="SurfaceBrush"
+                         Color="#FFFFFF"/>
+
+
+        <!-- =========================================================
+             SHADOWS
+        ========================================================== -->
+
+        <DropShadowEffect x:Key="CardShadow"
+                          Color="#64748B"
+                          Opacity="0.09"
+                          BlurRadius="22"
+                          ShadowDepth="3"/>
+
+        <DropShadowEffect x:Key="SmallShadow"
+                          Color="#64748B"
+                          Opacity="0.07"
+                          BlurRadius="14"
+                          ShadowDepth="2"/>
+
+
+        <!-- =========================================================
+             DATAGRID HEADER
+        ========================================================== -->
+
+        <Style TargetType="DataGridColumnHeader">
+
+            <Setter Property="Background"
+                    Value="#F8FAFC"/>
+
+            <Setter Property="Foreground"
+                    Value="#475569"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Height"
+                    Value="52"/>
+
+            <Setter Property="Padding"
+                    Value="8,0"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#E2E8F0"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,1"/>
+
+        </Style>
+
+
+        <!-- =========================================================
+             DATAGRID ROW
+        ========================================================== -->
+
+        <Style TargetType="DataGridRow">
+
+            <Setter Property="Height"
+                    Value="58"/>
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="Foreground"
+                    Value="#334155"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#F1F5F9"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,1"/>
+
+            <Setter Property="SnapsToDevicePixels"
+                    Value="True"/>
+
+            <Style.Triggers>
+
+                <!-- HOVER -->
+
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+
+                    <Setter Property="Background"
+                            Value="#F8FBFF"/>
+
+                    <Setter Property="BorderBrush"
+                            Value="#E8EEF8"/>
+
+                </Trigger>
+
+
+                <!-- SELECTED -->
+
+                <Trigger Property="IsSelected"
+                         Value="True">
+
+                    <Setter Property="Background"
+                            Value="#F5F8FF"/>
+
+                    <Setter Property="Foreground"
+                            Value="#334155"/>
+
+                    <Setter Property="BorderBrush"
+                            Value="#E6EDFF"/>
+
+                </Trigger>
+
+
+                <!-- SELECTED + HOVER -->
+
+                <MultiTrigger>
+
+                    <MultiTrigger.Conditions>
+
+                        <Condition Property="IsSelected"
+                                   Value="True"/>
+
+                        <Condition Property="IsMouseOver"
+                                   Value="True"/>
+
+                    </MultiTrigger.Conditions>
+
+                    <Setter Property="Background"
+                            Value="#F1F6FF"/>
+
+                    <Setter Property="BorderBrush"
+                            Value="#DCE7FF"/>
+
+                </MultiTrigger>
+
+            </Style.Triggers>
+
+        </Style>
+
+
+        <!-- =========================================================
+             DATAGRID CELL
+        ========================================================== -->
+
+        <Style TargetType="DataGridCell">
+
+            <Setter Property="Background"
+                    Value="Transparent"/>
+
+            <Setter Property="Foreground"
+                    Value="#334155"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="Padding"
+                    Value="10,0"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Center"/>
+
+            <Style.Triggers>
+
+                <Trigger Property="IsSelected"
+                         Value="True">
+
+                    <Setter Property="Background"
+                            Value="Transparent"/>
+
+                    <Setter Property="Foreground"
+                            Value="#334155"/>
+
+                </Trigger>
+
+            </Style.Triggers>
+
+        </Style>
+
+
+        <!-- =========================================================
+             CLOSE BUTTON
+        ========================================================== -->
+
+        <Style x:Key="CloseButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Height"
+                    Value="44"/>
+
+            <Setter Property="Width"
+                    Value="120"/>
+
+            <Setter Property="Background"
+                    Value="#F8FAFC"/>
+
+            <Setter Property="Foreground"
+                    Value="#475569"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#E2E8F0"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10">
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#F1F5F9"/>
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="BorderBrush"
+                                        Value="#CBD5E1"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Opacity"
+                                        Value="0.85"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+    </Window.Resources>
+
+
+    <!-- =============================================================
+         MAIN
+    ============================================================= -->
+
+    <Grid Margin="28">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="*"/>
+
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+
+
+        <!-- =========================================================
+             HEADER
+        ========================================================== -->
+
+        <Border Grid.Row="0"
+                Background="White"
+                CornerRadius="18"
+                Padding="22"
+                Margin="0,0,0,20"
+                Effect="{StaticResource CardShadow}">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="Auto"/>
+
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+
+
+                <!-- ICON -->
+
+                <Border Grid.Column="0"
+                        Width="52"
+                        Height="52"
+                        CornerRadius="14"
+                        Background="#EFF6FF"
+                        VerticalAlignment="Center">
+
+                    <TextBlock Text="▤"
+                               FontSize="25"
+                               Foreground="#2563EB"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+
+                </Border>
+
+
+                <!-- HEADER TEXT -->
+
+                <StackPanel Grid.Column="1"
+                            Margin="15,0,0,0"
+                            VerticalAlignment="Center">
+
+                    <TextBlock Text="كشف حساب العميل"
+                               FontSize="26"
+                               FontWeight="Bold"
+                               Foreground="#172033"/>
+
+                    <TextBlock x:Name="CustomerNameHeaderText"
+                               Text="-"
+                               FontSize="15"
+                               Foreground="#64748B"
+                               Margin="0,5,0,0"/>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- =========================================================
+             SUMMARY CARDS
+        ========================================================== -->
+
+        <Grid Grid.Row="1"
+              Margin="0,0,0,20">
+
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition Width="*"/>
+
+                <ColumnDefinition Width="16"/>
+
+                <ColumnDefinition Width="*"/>
+
+                <ColumnDefinition Width="16"/>
+
+                <ColumnDefinition Width="*"/>
+
+            </Grid.ColumnDefinitions>
+
+
+            <!-- =====================================================
+                 CREDIT
+            ====================================================== -->
+
+            <Border Grid.Column="0"
+                    Background="White"
+                    CornerRadius="16"
+                    Padding="20"
+                    Effect="{StaticResource SmallShadow}">
+
+                <StackPanel>
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition Width="*"/>
+
+                            <ColumnDefinition Width="Auto"/>
+
+                        </Grid.ColumnDefinitions>
+
+
+                        <TextBlock Grid.Column="0"
+                                   Text="إجمالي الآجل"
+                                   FontSize="14"
+                                   FontWeight="SemiBold"
+                                   Foreground="#64748B"
+                                   VerticalAlignment="Center"/>
+
+
+                        <Border Grid.Column="1"
+                                Width="38"
+                                Height="38"
+                                CornerRadius="10"
+                                Background="#FEF2F2">
+
+                            <TextBlock Text="!"
+                                       FontSize="18"
+                                       FontWeight="Bold"
+                                       Foreground="#DC2626"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                    </Grid>
+
+
+                    <TextBlock x:Name="TotalCreditText"
+                               Text="0.00 ج.م"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               Foreground="#DC2626"
+                               Margin="0,13,0,0"/>
+
+                </StackPanel>
+
+            </Border>
+
+
+            <!-- =====================================================
+                 PAID
+            ====================================================== -->
+
+            <Border Grid.Column="2"
+                    Background="White"
+                    CornerRadius="16"
+                    Padding="20"
+                    Effect="{StaticResource SmallShadow}">
+
+                <StackPanel>
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition Width="*"/>
+
+                            <ColumnDefinition Width="Auto"/>
+
+                        </Grid.ColumnDefinitions>
+
+
+                        <TextBlock Grid.Column="0"
+                                   Text="إجمالي المدفوع"
+                                   FontSize="14"
+                                   FontWeight="SemiBold"
+                                   Foreground="#64748B"
+                                   VerticalAlignment="Center"/>
+
+
+                        <Border Grid.Column="1"
+                                Width="38"
+                                Height="38"
+                                CornerRadius="10"
+                                Background="#ECFDF5">
+
+                            <TextBlock Text="✓"
+                                       FontSize="17"
+                                       FontWeight="Bold"
+                                       Foreground="#16A34A"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                    </Grid>
+
+
+                    <TextBlock x:Name="TotalPaidText"
+                               Text="0.00 ج.م"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               Foreground="#16A34A"
+                               Margin="0,13,0,0"/>
+
+                </StackPanel>
+
+            </Border>
+
+
+            <!-- =====================================================
+                 REMAINING
+            ====================================================== -->
+
+            <Border Grid.Column="4"
+                    Background="White"
+                    CornerRadius="16"
+                    Padding="20"
+                    Effect="{StaticResource SmallShadow}">
+
+                <StackPanel>
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition Width="*"/>
+
+                            <ColumnDefinition Width="Auto"/>
+
+                        </Grid.ColumnDefinitions>
+
+
+                        <TextBlock Grid.Column="0"
+                                   Text="المتبقي"
+                                   FontSize="14"
+                                   FontWeight="SemiBold"
+                                   Foreground="#64748B"
+                                   VerticalAlignment="Center"/>
+
+
+                        <Border Grid.Column="1"
+                                Width="38"
+                                Height="38"
+                                CornerRadius="10"
+                                Background="#FFF7ED">
+
+                            <TextBlock Text="◷"
+                                       FontSize="18"
+                                       FontWeight="Bold"
+                                       Foreground="#EA580C"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                    </Grid>
+
+
+                    <TextBlock x:Name="RemainingText"
+                               Text="0.00 ج.م"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               Foreground="#B91C1C"
+                               Margin="0,13,0,0"/>
+
+                </StackPanel>
+
+            </Border>
+
+        </Grid>
+
+
+        <!-- =========================================================
+             TRANSACTIONS
+        ========================================================== -->
+
+        <Border Grid.Row="2"
+                Background="White"
+                CornerRadius="18"
+                Padding="18"
+                Effect="{StaticResource CardShadow}">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="Auto"/>
+
+                    <RowDefinition Height="14"/>
+
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+
+
+                <!-- TABLE HEADER -->
+
+                <Grid Grid.Row="0">
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="*"/>
+
+                        <ColumnDefinition Width="Auto"/>
+
+                    </Grid.ColumnDefinitions>
+
+
+                    <StackPanel Grid.Column="0">
+
+                        <TextBlock Text="سجل الحركات"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="#172033"/>
+
+                        <TextBlock Text="تفاصيل المعاملات المالية الخاصة بالعميل"
+                                   FontSize="13"
+                                   Foreground="#94A3B8"
+                                   Margin="0,4,0,0"/>
+
+                    </StackPanel>
+
+
+                    <Border Grid.Column="1"
+                            Background="#F8FAFC"
+                            BorderBrush="#E2E8F0"
+                            BorderThickness="1"
+                            CornerRadius="9"
+                            Padding="13,7"
+                            VerticalAlignment="Center">
+
+                        <TextBlock Text="الحركات المالية"
+                                   FontSize="12"
+                                   FontWeight="SemiBold"
+                                   Foreground="#64748B"/>
+
+                    </Border>
+
+                </Grid>
+
+
+                <!-- DATA GRID -->
+
+                <DataGrid Grid.Row="2"
+                          x:Name="TransactionsDataGrid"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserResizeRows="False"
+                          CanUserSortColumns="True"
+                          SelectionMode="Single"
+                          SelectionUnit="FullRow"
+                          HeadersVisibility="Column"
+                          BorderThickness="0"
+                          GridLinesVisibility="Horizontal"
+                          HorizontalGridLinesBrush="#EEF2F7"
+                          VerticalGridLinesBrush="Transparent"
+                          RowHeight="58"
+                          Background="White"
+                          Foreground="#334155"
+                          FontSize="14"
+                          AlternationCount="2"
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          EnableRowVirtualization="True"
+                          EnableColumnVirtualization="True">
+
+                    <DataGrid.Columns>
+
+
+                        <!-- DATE -->
+
+                        <DataGridTextColumn Header="التاريخ"
+                                            Binding="{Binding TransactionDate, StringFormat=dd/MM/yyyy HH\:mm}"
+                                            Width="180">
+
+                            <DataGridTextColumn.ElementStyle>
+
+                                <Style TargetType="TextBlock">
+
+                                    <Setter Property="HorizontalAlignment"
+                                            Value="Center"/>
+
+                                    <Setter Property="VerticalAlignment"
+                                            Value="Center"/>
+
+                                    <Setter Property="FontSize"
+                                            Value="13"/>
+
+                                    <Setter Property="Foreground"
+                                            Value="#475569"/>
+
+                                </Style>
+
+                            </DataGridTextColumn.ElementStyle>
+
+                        </DataGridTextColumn>
+
+
+                        <!-- TRANSACTION TYPE -->
+
+                        <DataGridTextColumn Header="نوع الحركة"
+                                            Binding="{Binding TransactionTypeText}"
+                                            Width="160">
+
+                            <DataGridTextColumn.ElementStyle>
+
+                                <Style TargetType="TextBlock">
+
+                                    <Setter Property="HorizontalAlignment"
+                                            Value="Center"/>
+
+                                    <Setter Property="VerticalAlignment"
+                                            Value="Center"/>
+
+                                    <Setter Property="FontSize"
+                                            Value="14"/>
+
+                                    <Setter Property="FontWeight"
+                                            Value="SemiBold"/>
+
+                                    <Setter Property="Foreground"
+                                            Value="#334155"/>
+
+                                </Style>
+
+                            </DataGridTextColumn.ElementStyle>
+
+                        </DataGridTextColumn>
+
+
+                        <!-- AMOUNT -->
+
+                        <DataGridTextColumn Header="المبلغ"
+                                            Binding="{Binding Amount, StringFormat={}{0:N2} ج.م}"
+                                            Width="150">
+
+                            <DataGridTextColumn.ElementStyle>
+
+                                <Style TargetType="TextBlock">
+
+                                    <Setter Property="HorizontalAlignment"
+                                            Value="Center"/>
+
+                                    <Setter Property="VerticalAlignment"
+                                            Value="Center"/>
+
+                                    <Setter Property="FontSize"
+                                            Value="14"/>
+
+                                    <Setter Property="FontWeight"
+                                            Value="SemiBold"/>
+
+                                    <Setter Property="Foreground"
+                                            Value="#172033"/>
+
+                                </Style>
+
+                            </DataGridTextColumn.ElementStyle>
+
+                        </DataGridTextColumn>
+
+
+                        <!-- PAYMENT METHOD -->
+
+                        <DataGridTextColumn Header="طريقة الدفع"
+                                            Binding="{Binding PaymentMethodDisplay}"
+                                            Width="150">
+
+                            <DataGridTextColumn.ElementStyle>
+
+                                <Style TargetType="TextBlock">
+
+                                    <Setter Property="HorizontalAlignment"
+                                            Value="Center"/>
+
+                                    <Setter Property="VerticalAlignment"
+                                            Value="Center"/>
+
+                                    <Setter Property="FontSize"
+                                            Value="13"/>
+
+                                    <Setter Property="Foreground"
+                                            Value="#64748B"/>
+
+                                </Style>
+
+                            </DataGridTextColumn.ElementStyle>
+
+                        </DataGridTextColumn>
+
+
+                        <!-- NOTES -->
+
+                        <DataGridTextColumn Header="ملاحظات"
+                                            Binding="{Binding NotesDisplay}"
+                                            Width="*">
+
+                            <DataGridTextColumn.ElementStyle>
+
+                                <Style TargetType="TextBlock">
+
+                                    <Setter Property="HorizontalAlignment"
+                                            Value="Center"/>
+
+                                    <Setter Property="VerticalAlignment"
+                                            Value="Center"/>
+
+                                    <Setter Property="FontSize"
+                                            Value="13"/>
+
+                                    <Setter Property="Foreground"
+                                            Value="#64748B"/>
+
+                                    <Setter Property="TextTrimming"
+                                            Value="CharacterEllipsis"/>
+
+                                </Style>
+
+                            </DataGridTextColumn.ElementStyle>
+
+                        </DataGridTextColumn>
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- =========================================================
+             CLOSE
+        ========================================================== -->
+
+        <Button Grid.Row="3"
+                Content="إغلاق"
+                Style="{StaticResource CloseButtonStyle}"
+                HorizontalAlignment="Center"
+                Margin="0,18,0,0"
+                Click="CloseButton_Click"/>
+
+    </Grid>
+
+</Window>

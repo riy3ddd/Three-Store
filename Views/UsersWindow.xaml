@@ -1,0 +1,534 @@
+﻿<Window x:Class="WpfApp1.UsersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Three Store - إدارة الأعضاء"
+        Height="720"
+        Width="1150"
+        MinHeight="600"
+        MinWidth="950"
+        WindowStartupLocation="CenterOwner"
+        FlowDirection="RightToLeft"
+        Background="#F1F5F9"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+
+        <DropShadowEffect x:Key="ModernShadow"
+                          BlurRadius="15"
+                          Direction="270"
+                          ShadowDepth="3"
+                          Color="#0F172A"
+                          Opacity="0.05"/>
+
+        <!-- شكل موحد لرؤوس الأعمدة -->
+        <Style x:Key="UsersColumnHeaderStyle"
+               TargetType="DataGridColumnHeader">
+
+            <Setter Property="Background" Value="#F8FAFC"/>
+            <Setter Property="Foreground" Value="#475569"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="Padding" Value="12,0"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+        </Style>
+
+        <!-- شكل موحد للنص داخل الخلايا -->
+        <Style x:Key="UsersCellTextStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="#334155"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+
+        </Style>
+
+    </Window.Resources>
+
+
+    <Grid Margin="24">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <!-- ===================================================== -->
+        <!-- HEADER -->
+        <!-- ===================================================== -->
+
+        <Grid Grid.Row="0"
+              Margin="0,0,0,20">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+
+            <StackPanel Grid.Column="0"
+                        VerticalAlignment="Center">
+
+                <TextBlock Text="إدارة الأعضاء 👥"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="#0F172A"/>
+
+                <TextBlock Text="عرض، البحث، وإدارة صلاحيات وحالة مستخدمي النظام"
+                           FontSize="13"
+                           Foreground="#64748B"
+                           Margin="0,4,0,0"/>
+
+            </StackPanel>
+
+
+            <Button Grid.Column="1"
+                    Content="+ إضافة عضو جديد"
+                    Height="42"
+                    Padding="20,0"
+                    FontSize="14"
+                    FontWeight="SemiBold"
+                    Background="#2563EB"
+                    Foreground="White"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    Click="AddUserButton_Click">
+
+                <Button.Resources>
+
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="8"/>
+                    </Style>
+
+                </Button.Resources>
+
+                <Button.Style>
+
+                    <Style TargetType="Button">
+
+                        <Setter Property="Background"
+                                Value="#2563EB"/>
+
+                        <Style.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter Property="Background"
+                                        Value="#1D4ED8"/>
+
+                            </Trigger>
+
+                        </Style.Triggers>
+
+                    </Style>
+
+                </Button.Style>
+
+            </Button>
+
+        </Grid>
+
+
+        <!-- ===================================================== -->
+        <!-- SEARCH -->
+        <!-- ===================================================== -->
+
+        <Border Grid.Row="1"
+                Background="White"
+                CornerRadius="10"
+                Padding="8,4"
+                Effect="{StaticResource ModernShadow}"
+                BorderBrush="#E2E8F0"
+                BorderThickness="1"
+                Margin="0,0,0,20">
+
+            <Grid Height="38">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+
+                <TextBlock Grid.Column="0"
+                           Text="🔍"
+                           FontSize="14"
+                           VerticalAlignment="Center"
+                           Margin="8,0,12,0"
+                           Foreground="#94A3B8"/>
+
+
+                <TextBox Grid.Column="1"
+                         x:Name="SearchTextBox"
+                         FontSize="14"
+                         VerticalContentAlignment="Center"
+                         BorderThickness="0"
+                         Background="Transparent"
+                         TextChanged="SearchTextBox_TextChanged"/>
+
+
+                <TextBlock Grid.Column="1"
+                           Text="ابحث باسم المستخدم أو الصلاحية..."
+                           Foreground="#94A3B8"
+                           FontSize="14"
+                           VerticalAlignment="Center"
+                           IsHitTestVisible="False">
+
+                    <TextBlock.Style>
+
+                        <Style TargetType="TextBlock">
+
+                            <Setter Property="Visibility"
+                                    Value="Collapsed"/>
+
+                            <Style.Triggers>
+
+                                <DataTrigger Binding="{Binding Text, ElementName=SearchTextBox}"
+                                             Value="">
+
+                                    <Setter Property="Visibility"
+                                            Value="Visible"/>
+
+                                </DataTrigger>
+
+                            </Style.Triggers>
+
+                        </Style>
+
+                    </TextBlock.Style>
+
+                </TextBlock>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- ===================================================== -->
+        <!-- USERS TABLE -->
+        <!-- ===================================================== -->
+
+        <Border Grid.Row="2"
+                Background="White"
+                CornerRadius="12"
+                Padding="8"
+                Effect="{StaticResource ModernShadow}"
+                BorderBrush="#E2E8F0"
+                BorderThickness="1">
+
+
+            <DataGrid x:Name="UsersDataGrid"
+
+                      AutoGenerateColumns="False"
+
+                      IsReadOnly="True"
+
+                      CanUserAddRows="False"
+
+                      CanUserDeleteRows="False"
+
+                      CanUserResizeRows="False"
+
+                      CanUserReorderColumns="False"
+
+                      HeadersVisibility="Column"
+
+                      GridLinesVisibility="Horizontal"
+
+                      FontSize="13"
+
+                      RowHeight="54"
+
+                      Background="Transparent"
+
+                      BorderThickness="0"
+
+                      HorizontalGridLinesBrush="#F1F5F9"
+
+                      VerticalGridLinesBrush="#F1F5F9"
+
+                      HorizontalScrollBarVisibility="Disabled"
+
+                      VerticalScrollBarVisibility="Auto"
+
+                      ColumnHeaderStyle="{StaticResource UsersColumnHeaderStyle}">
+
+
+                <!-- ================================================= -->
+                <!-- ROW STYLE -->
+                <!-- ================================================= -->
+
+                <DataGrid.RowStyle>
+
+                    <Style TargetType="DataGridRow">
+
+                        <Setter Property="Background"
+                                Value="White"/>
+
+                        <Setter Property="BorderThickness"
+                                Value="0"/>
+
+                        <Setter Property="SnapsToDevicePixels"
+                                Value="True"/>
+
+                        <Style.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter Property="Background"
+                                        Value="#F8FAFC"/>
+
+                            </Trigger>
+
+                        </Style.Triggers>
+
+                    </Style>
+
+                </DataGrid.RowStyle>
+
+
+                <!-- ================================================= -->
+                <!-- COLUMNS -->
+                <!-- ================================================= -->
+
+                <DataGrid.Columns>
+
+
+                    <!-- اسم الدخول -->
+
+                    <!-- اسم الأعضاء -->
+
+                    <DataGridTextColumn Header="اسم الأعضاء"
+                    Binding="{Binding Username}"
+                    Width="*"
+                    MinWidth="220"
+                    HeaderStyle="{StaticResource UsersColumnHeaderStyle}">
+
+                        <DataGridTextColumn.ElementStyle>
+
+                            <Style TargetType="TextBlock"
+               BasedOn="{StaticResource UsersCellTextStyle}">
+
+                                <!-- توسيط اسم العضو بالضبط تحت العنوان -->
+                                <Setter Property="HorizontalAlignment"
+                    Value="Center"/>
+
+                                <Setter Property="TextAlignment"
+                    Value="Center"/>
+
+                            </Style>
+
+                        </DataGridTextColumn.ElementStyle>
+
+                    </DataGridTextColumn>
+
+                    <!-- الصلاحية -->
+
+                    <DataGridTextColumn Header="الصلاحية"
+                                        Binding="{Binding Role}"
+                                        Width="180"
+                                        MinWidth="180"
+                                        HeaderStyle="{StaticResource UsersColumnHeaderStyle}">
+
+                        <DataGridTextColumn.ElementStyle>
+
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource UsersCellTextStyle}">
+
+                                <Setter Property="HorizontalAlignment"
+                                        Value="Center"/>
+
+                                <Setter Property="TextAlignment"
+                                        Value="Center"/>
+
+                            </Style>
+
+                        </DataGridTextColumn.ElementStyle>
+
+                    </DataGridTextColumn>
+
+
+                    <!-- الحالة -->
+
+                    <DataGridTemplateColumn Header="الحالة"
+                                            Width="150"
+                                            MinWidth="150"
+                                            HeaderStyle="{StaticResource UsersColumnHeaderStyle}">
+
+                        <DataGridTemplateColumn.CellTemplate>
+
+                            <DataTemplate>
+
+                                <Border x:Name="BadgeBorder"
+                                        Background="#FEF2F2"
+                                        CornerRadius="14"
+                                        Padding="16,5"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+
+                                    <TextBlock x:Name="BadgeText"
+                                               Text="غير نشط"
+                                               Foreground="#DC2626"
+                                               FontWeight="SemiBold"
+                                               FontSize="12"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+
+                                </Border>
+
+
+                                <DataTemplate.Triggers>
+
+                                    <DataTrigger Binding="{Binding IsActive}"
+                                                 Value="True">
+
+                                        <Setter TargetName="BadgeBorder"
+                                                Property="Background"
+                                                Value="#DCFCE7"/>
+
+                                        <Setter TargetName="BadgeText"
+                                                Property="Text"
+                                                Value="نشط"/>
+
+                                        <Setter TargetName="BadgeText"
+                                                Property="Foreground"
+                                                Value="#16A34A"/>
+
+                                    </DataTrigger>
+
+                                </DataTemplate.Triggers>
+
+                            </DataTemplate>
+
+                        </DataGridTemplateColumn.CellTemplate>
+
+                    </DataGridTemplateColumn>
+
+
+                    <!-- تاريخ الإنشاء -->
+
+                    <DataGridTextColumn Header="تاريخ الإنشاء"
+                                        Binding="{Binding CreatedAt, StringFormat={}{0:yyyy/MM/dd}}"
+                                        Width="170"
+                                        MinWidth="170"
+                                        HeaderStyle="{StaticResource UsersColumnHeaderStyle}">
+
+                        <DataGridTextColumn.ElementStyle>
+
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource UsersCellTextStyle}">
+
+                                <Setter Property="HorizontalAlignment"
+                                        Value="Center"/>
+
+                                <Setter Property="TextAlignment"
+                                        Value="Center"/>
+
+                            </Style>
+
+                        </DataGridTextColumn.ElementStyle>
+
+                    </DataGridTextColumn>
+
+
+                    <!-- الإجراءات -->
+
+                    <DataGridTemplateColumn Header="الإجراءات"
+                                            Width="205"
+                                            MinWidth="205"
+                                            HeaderStyle="{StaticResource UsersColumnHeaderStyle}">
+
+                        <DataGridTemplateColumn.CellTemplate>
+
+                            <DataTemplate>
+
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
+
+
+                                    <!-- تعديل -->
+
+                                    <Button Content="✏ تعديل"
+                                            Width="82"
+                                            Height="32"
+                                            Margin="3,0"
+                                            FontSize="12"
+                                            FontWeight="SemiBold"
+                                            Background="#EFF6FF"
+                                            Foreground="#2563EB"
+                                            BorderBrush="#BFDBFE"
+                                            BorderThickness="1"
+                                            Cursor="Hand"
+                                            Click="EditUserButton_Click">
+
+                                        <Button.Resources>
+
+                                            <Style TargetType="Border">
+
+                                                <Setter Property="CornerRadius"
+                                                        Value="6"/>
+
+                                            </Style>
+
+                                        </Button.Resources>
+
+                                    </Button>
+
+
+                                    <!-- حذف -->
+
+                                    <Button Content="🗑 حذف"
+                                            Width="82"
+                                            Height="32"
+                                            Margin="3,0"
+                                            FontSize="12"
+                                            FontWeight="SemiBold"
+                                            Background="#FEF2F2"
+                                            Foreground="#DC2626"
+                                            BorderBrush="#FECACA"
+                                            BorderThickness="1"
+                                            Cursor="Hand"
+                                            Click="DeleteUserButton_Click">
+
+                                        <Button.Resources>
+
+                                            <Style TargetType="Border">
+
+                                                <Setter Property="CornerRadius"
+                                                        Value="6"/>
+
+                                            </Style>
+
+                                        </Button.Resources>
+
+                                    </Button>
+
+                                </StackPanel>
+
+                            </DataTemplate>
+
+                        </DataGridTemplateColumn.CellTemplate>
+
+                    </DataGridTemplateColumn>
+
+
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+        </Border>
+
+    </Grid>
+
+</Window>

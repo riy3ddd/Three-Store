@@ -1,0 +1,1126 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Three Store Management System"
+        Height="780"
+        Width="1280"
+        MinHeight="700"
+        MinWidth="1100"
+        WindowStartupLocation="CenterScreen"
+        FlowDirection="RightToLeft"
+        Background="#F4F7FB"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+
+        <!-- COLORS -->
+
+        <SolidColorBrush x:Key="PrimaryBrush"
+                         Color="#2563EB"/>
+
+        <SolidColorBrush x:Key="PrimaryDarkBrush"
+                         Color="#1D4ED8"/>
+
+        <SolidColorBrush x:Key="TextPrimaryBrush"
+                         Color="#0F172A"/>
+
+        <SolidColorBrush x:Key="TextSecondaryBrush"
+                         Color="#64748B"/>
+
+        <SolidColorBrush x:Key="TextMutedBrush"
+                         Color="#94A3B8"/>
+
+        <SolidColorBrush x:Key="BorderBrush"
+                         Color="#E2E8F0"/>
+
+
+        <!-- CARD SHADOW -->
+
+        <DropShadowEffect x:Key="CardShadow"
+                          Color="#CBD5E1"
+                          BlurRadius="18"
+                          ShadowDepth="3"
+                          Direction="270"
+                          Opacity="0.35"/>
+
+
+        <!-- SERVICE BUTTON STYLE -->
+
+        <Style x:Key="ServiceButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#E5EAF1"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Padding"
+                    Value="8"/>
+
+            <Setter Property="Margin"
+                    Value="4"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="ServiceBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="18">
+
+                            <Border.Effect>
+
+                                <DropShadowEffect
+                                    Color="#CBD5E1"
+                                    BlurRadius="12"
+                                    ShadowDepth="2"
+                                    Direction="270"
+                                    Opacity="0.25"/>
+
+                            </Border.Effect>
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="ServiceBorder"
+                                        Property="Background"
+                                        Value="#F8FAFC"/>
+
+                                <Setter TargetName="ServiceBorder"
+                                        Property="BorderBrush"
+                                        Value="#CBD5E1"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+
+                                <Setter TargetName="ServiceBorder"
+                                        Property="Background"
+                                        Value="#F1F5F9"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+        <!-- DASHBOARD CARD STYLE -->
+
+        <Style x:Key="DashboardCardStyle"
+               TargetType="Border">
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="CornerRadius"
+                    Value="18"/>
+
+            <Setter Property="Padding"
+                    Value="18"/>
+
+            <Setter Property="Margin"
+                    Value="5"/>
+
+            <Setter Property="Effect"
+                    Value="{StaticResource CardShadow}"/>
+
+        </Style>
+
+
+        <!-- SECTION TITLE -->
+
+        <Style x:Key="SectionTitleStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="FontSize"
+                    Value="18"/>
+
+            <Setter Property="FontWeight"
+                    Value="Bold"/>
+
+            <Setter Property="Foreground"
+                    Value="{StaticResource TextPrimaryBrush}"/>
+
+        </Style>
+
+    </Window.Resources>
+
+
+    <!-- MAIN LAYOUT -->
+
+    <Grid Margin="30,24,30,24">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="329.597"/>
+
+            <RowDefinition Height="51.343"/>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+
+        <!-- HEADER -->
+
+        <Grid Grid.Row="0"
+              Margin="0,0,0,22">
+
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+
+            </Grid.ColumnDefinitions>
+
+
+            <StackPanel Grid.Column="0"
+                        VerticalAlignment="Center">
+
+                <TextBlock Text="Three Store"
+                           FontSize="28"
+                           FontWeight="Bold"
+                           Foreground="{StaticResource TextPrimaryBrush}"/>
+
+                <TextBlock Text="نظام إدارة المتجر"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource TextSecondaryBrush}"
+                           Margin="0,4,0,0"/>
+
+            </StackPanel>
+
+
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+
+
+                <!-- SYSTEM STATUS -->
+
+                <Border Background="#F0FDF4"
+                        BorderBrush="#BBF7D0"
+                        BorderThickness="1"
+                        CornerRadius="14"
+                        Padding="14,9"
+                        Margin="0,0,10,0">
+
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center">
+
+                        <Border Width="10"
+                                Height="10"
+                                CornerRadius="5"
+                                Background="#22C55E"
+                                Margin="0,0,8,0"
+                                VerticalAlignment="Center"/>
+
+                        <StackPanel>
+
+                            <TextBlock Text="النظام يعمل"
+                                       FontSize="13"
+                                       FontWeight="Bold"
+                                       Foreground="#166534"/>
+
+                            <TextBlock Text="متصل بقاعدة البيانات"
+                                       FontSize="11"
+                                       FontWeight="SemiBold"
+                                       Foreground="#4D7C5A"
+                                       Margin="0,2,0,0"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- CURRENT USER -->
+
+                <Border Background="White"
+                        BorderBrush="#E5EAF1"
+                        BorderThickness="1"
+                        CornerRadius="14"
+                        Padding="12,8">
+
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center">
+
+                        <Border Width="38"
+                                Height="38"
+                                CornerRadius="12"
+                                Background="#EFF6FF">
+
+                            <TextBlock Text="👤"
+                                       FontSize="18"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <StackPanel Margin="10,0,0,0"
+                                    VerticalAlignment="Center">
+
+                            <TextBlock Text="مرحباً بك"
+                                       FontSize="11"
+                                       FontWeight="SemiBold"
+                                       Foreground="#94A3B8"/>
+
+                            <TextBlock x:Name="CurrentUsernameTextBlock"
+                                       Text="المستخدم"
+                                       FontSize="14"
+                                       FontWeight="Bold"
+                                       Foreground="#0F172A"
+                                       Margin="0,2,0,0"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </Border>
+
+            </StackPanel>
+
+        </Grid>
+
+
+        <!-- SERVICES -->
+
+        <StackPanel Grid.Row="1"
+                    Margin="0,0,0,25"
+                    Grid.RowSpan="2">
+
+            <TextBlock Text="الخدمات"
+                       Style="{StaticResource SectionTitleStyle}"
+                       Margin="0,0,0,12"/>
+
+
+            <UniformGrid Columns="8"
+                         Height="320">
+
+
+                <!-- 1 - SALES -->
+
+                <Button x:Name="SalesButton"
+                        Style="{StaticResource ServiceButtonStyle}"
+                        Click="SalesButton_Click">
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <Border Width="42"
+                                Height="42"
+                                CornerRadius="13"
+                                Background="#ECFDF5"
+                                HorizontalAlignment="Center">
+
+                            <TextBlock Text="🛒"
+                                       FontSize="19"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <TextBlock Text="المبيعات"
+                                   FontSize="12.5"
+                                   FontWeight="SemiBold"
+                                   Foreground="#1E293B"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+
+                    </StackPanel>
+
+                </Button>
+
+                <!-- 8 - MAINTENANCE -->
+
+                <Button x:Name="MaintenanceButton"
+                        Style="{StaticResource ServiceButtonStyle}"
+                        Click="MaintenanceButton_Click">
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <Border Width="42"
+                                Height="42"
+                                CornerRadius="13"
+                                Background="#FFF7ED"
+                                HorizontalAlignment="Center">
+
+                            <TextBlock Text="🔧"
+                                       FontSize="19"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <TextBlock Text="الصيانة"
+                                   FontSize="12.5"
+                                   FontWeight="SemiBold"
+                                   Foreground="#1E293B"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+
+                    </StackPanel>
+
+                </Button>
+
+                <!-- 14 - DEVICES -->
+
+                <Button x:Name="DevicesButton"
+                        Style="{StaticResource ServiceButtonStyle}"
+                        Click="DevicesButton_Click">
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <Border Width="42"
+                                Height="42"
+                                CornerRadius="13"
+                                Background="#F0FDF4"
+                                HorizontalAlignment="Center">
+
+                            <TextBlock Text="💻"
+                                       FontSize="19"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <TextBlock Text="إدارة الأجهزة"
+                                   FontSize="12.5"
+                                   FontWeight="SemiBold"
+                                   Foreground="#1E293B"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+
+                    </StackPanel>
+
+                </Button>
+
+
+                <!-- 4 - EXPENSES -->
+
+                <Button x:Name="ExpensesButton"
+                        Style="{StaticResource ServiceButtonStyle}"
+                        Click="ExpensesButton_Click">
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <Border Width="42"
+                                Height="42"
+                                CornerRadius="13"
+                                Background="#FFF7ED"
+                                HorizontalAlignment="Center">
+
+                            <TextBlock Text="💸"
+                                       FontSize="19"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <TextBlock Text="المصروفات"
+                                   FontSize="12.5"
+                                   FontWeight="SemiBold"
+                                   Foreground="#1E293B"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+
+                    </StackPanel>
+
+                </Button>
+
+
+                <!-- 5 - RETURNS -->
+
+                <Button x:Name="ReturnsButton"
+                        Style="{StaticResource ServiceButtonStyle}"
+                        Click="ReturnsButton_Click">
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <Border Width="42"
+                                Height="42"
+                                CornerRadius="13"
+                                Background="#FFF1F2"
+                                HorizontalAlignment="Center">
+
+                            <TextBlock Text="↩"
+                                       FontSize="22"
+                                       FontWeight="Bold"
+                                       Foreground="#E11D48"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <TextBlock Text="المسترجعات"
+                                   FontSize="12.5"
+                                   FontWeight="SemiBold"
+                                   Foreground="#1E293B"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+
+                    </StackPanel>
+
+                </Button>
+
+
+
+                <!-- 3 - CREDIT -->
+
+                <Button x:Name="CreditButton"
+                        Style="{StaticResource ServiceButtonStyle}"
+                        Click="CreditButton_Click">
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <Border Width="42"
+                                Height="42"
+                                CornerRadius="13"
+                                Background="#FEF2F2"
+                                HorizontalAlignment="Center">
+
+                            <TextBlock Text="📋"
+                                       FontSize="19"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <TextBlock Text="الآجل"
+                                   FontSize="12.5"
+                                   FontWeight="SemiBold"
+                                   Foreground="#1E293B"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+
+                    </StackPanel>
+
+                </Button>
+
+
+
+                <!-- 6 - CUSTOMER ORDERS -->
+
+                <Button x:Name="OrdersButton"
+                        Style="{StaticResource ServiceButtonStyle}"
+                        Click="OrdersButton_Click">
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <Border Width="42"
+                                Height="42"
+                                CornerRadius="13"
+                                Background="#EEF2FF"
+                                HorizontalAlignment="Center">
+
+                            <TextBlock Text="📋"
+                                       FontSize="19"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <TextBlock Text="طلبات العملاء"
+                                   FontSize="12.5"
+                                   FontWeight="SemiBold"
+                                   Foreground="#1E293B"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+
+                    </StackPanel>
+
+                </Button>
+
+
+                <!-- 7 - OFFERS -->
+
+                <Button x:Name="OffersButton"
+                        Style="{StaticResource ServiceButtonStyle}"
+                        Click="OffersButton_Click">
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <Border Width="42"
+                                Height="42"
+                                CornerRadius="13"
+                                Background="#FFF7ED"
+                                HorizontalAlignment="Center">
+
+                            <TextBlock Text="🏷️"
+                                       FontSize="19"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <TextBlock Text="العروض"
+                                   FontSize="12.5"
+                                   FontWeight="SemiBold"
+                                   Foreground="#1E293B"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+
+                    </StackPanel>
+
+                </Button>
+
+
+                <!-- 15 - REVENUE BOX -->
+
+                <Button x:Name="RevenueBoxButton"
+                        Style="{StaticResource ServiceButtonStyle}"
+                        Click="RevenueBoxButton_Click">
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <Border Width="42"
+                                Height="42"
+                                CornerRadius="13"
+                                Background="#ECFDF5"
+                                HorizontalAlignment="Center">
+
+                            <TextBlock Text="💰"
+                                       FontSize="19"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <TextBlock Text="صندوق الإيرادات"
+                                   FontSize="12.5"
+                                   FontWeight="SemiBold"
+                                   Foreground="#1E293B"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+
+                    </StackPanel>
+
+                </Button>
+
+
+                <!-- 9 - INVOICE HISTORY -->
+
+                <Button x:Name="InvoiceHistoryButton"
+                        Style="{StaticResource ServiceButtonStyle}"
+                        Click="InvoiceHistoryButton_Click"
+                        Margin="0,4,0,4"
+                        Width="151">
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <Border Width="42"
+                                Height="42"
+                                CornerRadius="13"
+                                Background="#FDF2F8"
+                                HorizontalAlignment="Center">
+
+                            <TextBlock Text="🧾"
+                                       FontSize="19"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <TextBlock Text="سجل فواتير المبيعات"
+                                   FontSize="12.5"
+                                   FontWeight="SemiBold"
+                                   Foreground="#1E293B"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+
+                    </StackPanel>
+
+                </Button>
+
+
+                <!-- 16 - REPORTS -->
+
+                <Button x:Name="ReportsButton"
+                        Style="{StaticResource ServiceButtonStyle}"
+                        Click="ReportsButton_Click">
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <Border Width="42"
+                                Height="42"
+                                CornerRadius="13"
+                                Background="#ECFEFF"
+                                HorizontalAlignment="Center">
+
+                            <TextBlock Text="📊"
+                                       FontSize="19"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <TextBlock Text="تقارير وتحليلات المبيعات"
+                                   FontSize="12.5"
+                                   FontWeight="SemiBold"
+                                   Foreground="#1E293B"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+
+                    </StackPanel>
+
+                </Button>
+
+                <!-- 10 - INVENTORY -->
+
+                <Button x:Name="InventoryButton"
+                        Style="{StaticResource ServiceButtonStyle}"
+                        Click="InventoryButton_Click">
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <Border Width="42"
+                                Height="42"
+                                CornerRadius="13"
+                                Background="#F0FDF4"
+                                HorizontalAlignment="Center">
+
+                            <TextBlock Text="📋"
+                                       FontSize="19"
+                                       Foreground="#16A34A"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <TextBlock Text="جرد المنتجات"
+                                   FontSize="12.5"
+                                   FontWeight="SemiBold"
+                                   Foreground="#1E293B"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+
+                    </StackPanel>
+
+                </Button>
+
+
+                <!-- 11 - PRODUCTS -->
+
+                <Button x:Name="ProductsButton"
+                        Style="{StaticResource ServiceButtonStyle}"
+                        Click="ProductsButton_Click">
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <Border Width="42"
+                                Height="42"
+                                CornerRadius="13"
+                                Background="#EFF6FF"
+                                HorizontalAlignment="Center">
+
+                            <TextBlock Text="📦"
+                                       FontSize="19"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <TextBlock Text="المنتجات"
+                                   FontSize="12.5"
+                                   FontWeight="SemiBold"
+                                   Foreground="#1E293B"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+
+                    </StackPanel>
+
+                </Button>
+
+
+                <!-- 12 - CATEGORIES -->
+
+                <Button x:Name="CategoriesButton"
+                        Style="{StaticResource ServiceButtonStyle}"
+                        Click="CategoriesButton_Click">
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <Border Width="42"
+                                Height="42"
+                                CornerRadius="13"
+                                Background="#F5F3FF"
+                                HorizontalAlignment="Center">
+
+                            <TextBlock Text="▤"
+                                       FontSize="20"
+                                       Foreground="#7C3AED"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <TextBlock Text="التصنيفات"
+                                   FontSize="12.5"
+                                   FontWeight="SemiBold"
+                                   Foreground="#1E293B"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+
+                    </StackPanel>
+
+                </Button>
+
+                <!-- 2 - FAVORITE CUSTOMERS -->
+
+                <Button x:Name="FavoriteCustomersButton"
+                        Style="{StaticResource ServiceButtonStyle}"
+                        Click="FavoriteCustomersButton_Click">
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <Border Width="42"
+                                Height="42"
+                                CornerRadius="13"
+                                Background="#FFF7ED"
+                                HorizontalAlignment="Center">
+
+                            <TextBlock Text="⭐"
+                                       FontSize="19"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <TextBlock Text="العملاء المفضلين"
+                                   FontSize="12.5"
+                                   FontWeight="SemiBold"
+                                   Foreground="#1E293B"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+
+                    </StackPanel>
+
+                </Button>
+
+                <!-- 13 - USERS -->
+
+
+
+
+                <Button x:Name="UsersButton"
+                        Style="{StaticResource ServiceButtonStyle}"
+                        Click="UsersButton_Click">
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <Border Width="42"
+                                Height="42"
+                                CornerRadius="13"
+                                Background="#F1F5F9"
+                                HorizontalAlignment="Center">
+
+                            <TextBlock Text="👥"
+                                       FontSize="19"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <TextBlock Text="إدارة الأعضاء"
+                                   FontSize="12.5"
+                                   FontWeight="SemiBold"
+                                   Foreground="#1E293B"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+
+                    </StackPanel>
+
+                </Button>
+
+            </UniformGrid>
+
+        </StackPanel>
+
+
+        <!-- DASHBOARD TITLE -->
+
+        <Grid Grid.Row="3"
+              Margin="0,0,0,12">
+
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+
+                <TextBlock Text="نظرة سريعة"
+                           Style="{StaticResource SectionTitleStyle}"
+                           Height="33"/>
+
+                <TextBlock Text="ملخص حالة المتجر الحالية"
+                           FontSize="13"
+                           Foreground="{StaticResource TextSecondaryBrush}"
+                           Margin="0,3,0,0"/>
+
+            </StackPanel>
+
+            <TextBlock Grid.Column="1"
+                       Text="محدث الآن"
+                       FontSize="12"
+                       Foreground="{StaticResource TextMutedBrush}"
+                       VerticalAlignment="Center"/>
+
+        </Grid>
+
+
+        <!-- STATISTICS -->
+
+        <UniformGrid Grid.Row="4"
+                     Columns="4"
+                     Margin="0,10,0,56">
+
+
+            <!-- TOTAL PRODUCTS -->
+
+            <Border Style="{StaticResource DashboardCardStyle}">
+
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <Border Width="52"
+                            Height="52"
+                            CornerRadius="15"
+                            Background="#EFF6FF">
+
+                        <TextBlock Text="📦"
+                                   FontSize="23"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+
+                    </Border>
+
+                    <StackPanel Grid.Column="1"
+                                Margin="14,0,0,0"
+                                VerticalAlignment="Center">
+
+                        <TextBlock Text="إجمالي المنتجات"
+                                   FontSize="13"
+                                   Foreground="{StaticResource TextSecondaryBrush}"/>
+
+                        <TextBlock x:Name="TotalProductsTextBlock"
+                                   Text="0"
+                                   FontSize="24"
+                                   FontWeight="Bold"
+                                   Foreground="{StaticResource TextPrimaryBrush}"
+                                   Margin="0,3,0,0"/>
+
+                    </StackPanel>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- TOTAL CATEGORIES -->
+
+            <Border Style="{StaticResource DashboardCardStyle}">
+
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <Border Width="52"
+                            Height="52"
+                            CornerRadius="15"
+                            Background="#F5F3FF">
+
+                        <TextBlock Text="▤"
+                                   FontSize="25"
+                                   Foreground="#7C3AED"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+
+                    </Border>
+
+                    <StackPanel Grid.Column="1"
+                                Margin="14,0,0,0"
+                                VerticalAlignment="Center">
+
+                        <TextBlock Text="إجمالي التصنيفات"
+                                   FontSize="13"
+                                   Foreground="{StaticResource TextSecondaryBrush}"/>
+
+                        <TextBlock x:Name="TotalCategoriesTextBlock"
+                                   Text="0"
+                                   FontSize="24"
+                                   FontWeight="Bold"
+                                   Foreground="{StaticResource TextPrimaryBrush}"
+                                   Margin="0,3,0,0"/>
+
+                    </StackPanel>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- TOTAL QUANTITY -->
+
+            <Border Style="{StaticResource DashboardCardStyle}">
+
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <Border Width="52"
+                            Height="52"
+                            CornerRadius="15"
+                            Background="#ECFDF5">
+
+                        <TextBlock Text="📦"
+                                   FontSize="23"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+
+                    </Border>
+
+                    <StackPanel Grid.Column="1"
+                                Margin="14,0,0,0"
+                                VerticalAlignment="Center">
+
+                        <TextBlock Text="إجمالي الكمية"
+                                   FontSize="13"
+                                   Foreground="{StaticResource TextSecondaryBrush}"/>
+
+                        <TextBlock x:Name="TotalQuantityTextBlock"
+                                   Text="0"
+                                   FontSize="24"
+                                   FontWeight="Bold"
+                                   Foreground="{StaticResource TextPrimaryBrush}"
+                                   Margin="0,3,0,0"/>
+
+                    </StackPanel>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- LOW STOCK -->
+
+            <!-- LOW STOCK -->
+
+            <Border Style="{StaticResource DashboardCardStyle}"
+        Cursor="Hand"
+        MouseLeftButtonUp="LowStockCard_MouseLeftButtonUp">
+
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <Border Width="52"
+                Height="52"
+                CornerRadius="15"
+                Background="#FFF7ED">
+
+                        <TextBlock Text="⚠"
+                       FontSize="23"
+                       Foreground="#EA580C"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+
+                    </Border>
+
+                    <StackPanel Grid.Column="1"
+                    Margin="14,0,0,0"
+                    VerticalAlignment="Center">
+
+                        <TextBlock Text="منتجات منخفضة المخزون"
+                       FontSize="13"
+                       Foreground="{StaticResource TextSecondaryBrush}"/>
+
+                        <TextBlock x:Name="LowStockProductsTextBlock"
+                       Text="0"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="#EA580C"
+                       Margin="0,3,0,0"/>
+
+                    </StackPanel>
+
+                </Grid>
+
+            </Border>
+        </UniformGrid>
+
+    </Grid>
+
+</Window>

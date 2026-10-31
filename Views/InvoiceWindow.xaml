@@ -1,0 +1,334 @@
+﻿<Window x:Class="WpfApp1.Views.InvoiceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="فاتورة المبيعات"
+        Width="700"
+        Height="850"
+        WindowStartupLocation="CenterScreen"
+        FlowDirection="RightToLeft"
+        FontFamily="29 LT BUKRA REGULAR"
+        Background="#F4F6F9"
+        ResizeMode="CanResize">
+
+    <Window.Resources>
+
+        <Style TargetType="Button"
+               x:Key="ModernButtonStyle">
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="FontWeight"
+                    Value="Bold"/>
+
+            <Setter Property="FontSize"
+                    Value="15"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+    </Window.Resources>
+
+
+    <Grid Margin="25">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+
+
+        <!-- اسم المحل -->
+
+        <TextBlock Grid.Row="0"
+                   Text="Three Store"
+                   FontSize="40"
+                   FontWeight="Bold"
+                   Foreground="#1E293B"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,10"/>
+
+
+        <!-- رقم الفاتورة -->
+
+        <TextBlock x:Name="InvoiceNumberText"
+                   Grid.Row="1"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Foreground="#475569"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,4"/>
+
+
+        <!-- التاريخ -->
+
+        <TextBlock x:Name="InvoiceDateText"
+                   Grid.Row="2"
+                   FontSize="19"
+                   Foreground="#64748B"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,15"/>
+
+
+        <!-- بيانات العميل -->
+
+        <Border Grid.Row="3"
+                Background="White"
+                BorderBrush="#E2E8F0"
+                BorderThickness="1"
+                CornerRadius="10"
+                Padding="15"
+                Margin="0,0,0,15">
+
+            <Border.Effect>
+
+                <DropShadowEffect
+                    Color="#CBD5E1"
+                    BlurRadius="8"
+                    ShadowDepth="1"
+                    Direction="270"/>
+
+            </Border.Effect>
+
+
+            <StackPanel>
+
+                <TextBlock x:Name="CustomerNameText"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           Foreground="#334155"
+                           Margin="0,0,0,6"
+                           Visibility="Collapsed"/>
+
+
+                <TextBlock x:Name="CustomerPhoneText"
+                           FontSize="19"
+                           FontWeight="SemiBold"
+                           Foreground="#334155"
+                           Margin="0,0,0,6"
+                           Visibility="Collapsed"/>
+
+
+                <!-- الشيفت / المستخدم -->
+
+                <TextBlock x:Name="ShiftUserText"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           Foreground="#334155"
+                           Margin="0,0,0,6"/>
+
+
+                <TextBlock x:Name="PaymentMethodText"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           Foreground="#334155"
+                           Margin="0,0,0,6"/>
+
+
+                <TextBlock x:Name="VodafoneCashText"
+                           FontSize="19"
+                           FontWeight="SemiBold"
+                           Foreground="#334155"
+                           Margin="0,0,0,6"
+                           Visibility="Collapsed"/>
+
+
+                <TextBlock x:Name="PaidAmountText"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           Foreground="#15803D"
+                           Margin="0,0,0,6"/>
+
+
+                <TextBlock x:Name="CreditAmountText"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           Foreground="#B45309"/>
+
+            </StackPanel>
+
+        </Border>
+
+
+        <!-- المنتجات -->
+
+        <Border Grid.Row="4"
+                Background="White"
+                CornerRadius="10"
+                Padding="10"
+                Margin="0,0,0,15">
+
+            <Border.Effect>
+
+                <DropShadowEffect
+                    Color="#CBD5E1"
+                    BlurRadius="8"
+                    ShadowDepth="1"
+                    Direction="270"/>
+
+            </Border.Effect>
+
+
+            <DataGrid x:Name="InvoiceItemsGrid"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      HeadersVisibility="Column"
+                      GridLinesVisibility="Horizontal"
+                      Background="Transparent"
+                      BorderBrush="#F1F5F9"
+                      RowHeight="42"
+                      FontSize="14"
+                      FontWeight="SemiBold">
+
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn
+                        Header="رقم"
+                        Binding="{Binding Number}"
+                        Width="60"/>
+
+                    <DataGridTextColumn
+                        Header="المنتج"
+                        Binding="{Binding ProductName}"
+                        Width="*"/>
+
+                    <DataGridTextColumn
+                        Header="الكمية"
+                        Binding="{Binding Quantity}"
+                        Width="80"/>
+
+                    <DataGridTextColumn
+                        Header="السعر"
+                        Binding="{Binding UnitPrice, StringFormat={}{0:N2}}"
+                        Width="100"/>
+
+                    <DataGridTextColumn
+                        Header="الإجمالي"
+                        Binding="{Binding Total, StringFormat={}{0:N2}}"
+                        Width="110"/>
+
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+        </Border>
+
+
+        <!-- إجمالي الفاتورة -->
+
+        <Border Grid.Row="5"
+                Background="#EFF6FF"
+                CornerRadius="8"
+                Padding="12,10"
+                Margin="0,0,0,10"
+                HorizontalAlignment="Stretch">
+
+            <TextBlock x:Name="GrandTotalText"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="#1E40AF"
+                       HorizontalAlignment="Right"/>
+
+        </Border>
+
+
+        <!-- معلومات الدفع -->
+
+        <Border Grid.Row="6"
+                Background="#F8FAFC"
+                BorderBrush="#E2E8F0"
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="12"
+                Margin="0,0,0,15">
+
+            <StackPanel>
+
+                <TextBlock x:Name="PaymentSummaryText"
+                           FontSize="15"
+                           Foreground="#475569"
+                           HorizontalAlignment="Right"
+                           Margin="0,0,0,5"/>
+
+                <TextBlock x:Name="CreditSummaryText"
+                           FontSize="15"
+                           Foreground="#B45309"
+                           HorizontalAlignment="Right"/>
+
+            </StackPanel>
+
+        </Border>
+
+
+        <!-- الأزرار -->
+
+        <StackPanel Grid.Row="7"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+
+            <Button Content="🖨 طباعة الفاتورة"
+                    Width="160"
+                    Height="45"
+                    Background="#2563EB"
+                    Foreground="White"
+                    Style="{StaticResource ModernButtonStyle}"
+                    Margin="0,0,10,0"
+                    Click="PrintButton_Click">
+
+                <Button.Effect>
+
+                    <DropShadowEffect
+                        Color="#CBD5E1"
+                        BlurRadius="6"
+                        ShadowDepth="2"
+                        Direction="270"/>
+
+                </Button.Effect>
+
+            </Button>
+
+
+            <Button Content="إغلاق"
+                    Width="110"
+                    Height="45"
+                    Background="#F1F5F9"
+                    Foreground="#64748B"
+                    Style="{StaticResource ModernButtonStyle}"
+                    Click="CloseButton_Click"/>
+
+        </StackPanel>
+
+    </Grid>
+
+</Window>
