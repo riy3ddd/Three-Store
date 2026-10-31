@@ -1,3 +1,17 @@
+<p align="center">
+  <img src="docs/images/three-store-logo.png"
+       alt="Three Store Logo"
+       width="220">
+</p>
+
+<h1 align="center">Three Store</h1>
+
+<p align="center">
+  <strong>Integrated Store Management System</strong>
+</p>
+
+
+
 # 🛒 Three Store
 
 ### 💼 Integrated Store Management System
