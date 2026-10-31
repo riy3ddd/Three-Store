@@ -1,7 +1,7 @@
 <p align="center">
-  <img src="three-store-logo.png.jpg"
+  <img src="three-store-logo.jpg"
        alt="Three Store Logo"
-       width="700">
+       width="800">
 </p># 🛒 Three Store
 
 ### 💼 Integrated Store Management System
