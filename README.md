@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="three-store-logo.png"
+  <img src="three-store-logo.png.jpg"
        alt="Three Store Logo"
        width="220">
 </p># 🛒 Three Store
